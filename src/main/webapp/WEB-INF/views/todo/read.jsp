@@ -93,14 +93,15 @@
                         <div class="input-group mb-3">
                             <span class="input-group-text">Writer</span>
                             <input type="text" name="writer" class="form-control"
-                                   value='<c:out value="${dto.writer}"></c:out>' readonly>
+                                   value=<c:out value="${dto.writer}"></c:out> readonly>
                         </div>
 
                         <div class="form-check">
                             <label class="form-check-label">
                                 Finished &nbsp;
                             </label>
-                            <input class="form-check-input" type="checkbox" name="finished" ${dto.finished?"checked":""} disabled>
+                            <input class="form-check-input" type="checkbox" name="finished" ${dto.
+                                                                        finished?"checked":""} disabled>
                         </div>
 
                         <div class="my-4">
@@ -115,7 +116,8 @@
                                 self.location="/todo/modify?tno="+${dto.tno}
                             },false)
 
-                            document.querySelector(".btn-secondary").addEventListener("click",function (e){
+                            document.querySelector(".btn-secondary").addEventListener("click",function (e)
+                            {
                                 self.location="/todo/list";
 
                             },false)
@@ -130,8 +132,6 @@
 
     </div>
     <div class="row content">
-
-        <h1>Content</h1>
     </div>
     <div class="row footer">
         <!--<h1>Footer</h1>-->

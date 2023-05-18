@@ -60,12 +60,14 @@ public class TodoController {
     }
 
     @GetMapping({"/read","/modify"})
-    public void read(Long  tno, Model model){
+    public void read(Long tno, Model model){
 
         TodoDTO todoDTO =todoService.getOne(tno);
         log.info(todoDTO);
 
         model.addAttribute("dto",todoDTO);
+
+        log.info("모델에 담긴것 :"+model );
 
     }
 
@@ -73,11 +75,33 @@ public class TodoController {
     public String remove(Long tno, RedirectAttributes redirectAttributes){
 
         log.info("------------remove-----------");
-        log.info("tno: " +tno);
+        log.info(" remove tno의 값은 : " +tno);
 
         todoService.remove(tno);
 
-        return "redirect:/todo/list?";
+        return "redirect:/todo/list";
+    }
+
+    @PostMapping("/modify")
+    public String modify(@Valid TodoDTO todoDTO,
+                         BindingResult bindingResult,
+                         RedirectAttributes redirectAttributes){
+
+        if(bindingResult.hasErrors()){
+
+            log.info("has errors.....");
+            redirectAttributes.addFlashAttribute("errors",bindingResult.getAllErrors());
+            redirectAttributes.addAttribute("tno", todoDTO.getTno());
+
+            return "redirect:/todo/modify";
+
+        }
+
+        log.info(todoDTO);
+        todoService.modify(todoDTO);
+
+        return "redirect:/todo/list";
+
     }
 
 
