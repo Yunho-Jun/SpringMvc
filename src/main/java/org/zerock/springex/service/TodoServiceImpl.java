@@ -34,15 +34,15 @@ public class TodoServiceImpl implements TodoService{
         todoMapper.insert(todoVO);
     }
 
-    @Override
-    public List<TodoDTO> getAll() {
-
-        List<TodoDTO> dtoList = todoMapper.selectAll().stream()
-                .map(vo -> modelMapper.map(vo, TodoDTO.class))
-                .collect(Collectors.toList());
-
-        return dtoList;
-    }
+//    @Override
+//    public List<TodoDTO> getAll() {
+//
+//        List<TodoDTO> dtoList = todoMapper.selectAll().stream()
+//                .map(vo -> modelMapper.map(vo, TodoDTO.class))
+//                .collect(Collectors.toList());
+//
+//        return dtoList;
+//    }
 
     @Override
     public TodoDTO getOne(Long tno){
