@@ -6,8 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -26,8 +26,10 @@
 
 <div class="container-fluid">
     <div class="row">
+
         <!--<h1>Header</h1>-->
-        <div class="row content">
+
+        <div class="row">
             <div class="col">
 
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -73,6 +75,44 @@
                 </nav>
             </div>
         </div>
+
+        <div class="row content">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Search</h5>
+                        <form action="/todo/list" method="get">
+                            <input type="hidden" name="size" value="${pageRequestDTO.size}">
+                            <div class="mb-3">
+                                <input type="checkbox" name="finished" ${pageRequestDTO.finished?"checked":""}>완료여부
+                            </div>
+                            <div class="mb-3">
+                                <input type="checkbox" name="types" value="t"${pageRequestDTO.checkType("t")?"checked":""}>제목
+                                <input type="checkbox" name="types" value="t"${pageRequestDTO.checkType("w")?"checked":""}>작성자
+                                <input type="text" name="keyword" class="form-control" value='<c:out value="${pageRequestDTO.keyword}"/>'>
+                            </div>
+                            <div class="input-group mb-3 dueDateDiv">
+                                <input type="date" name="from" class="form-control" value="${pageRequestDTO.from}">
+                                <input type="date " name="to" class = "form-control" value="${pageRequestDTO.to}">
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="float-end">
+                                    <button class="btn btn-primary" type="submit">Search</button>
+                                    <button class="btn btn-info clearBtn"  type="reset">Clear</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
 
         <div class="row content">
             <div class="col">
@@ -131,7 +171,6 @@
                             </ul>
 
                             <script>
-
                                 document.querySelector(".pagination").addEventListener("click",function (e){
 
                                     e.preventDefault()
@@ -149,37 +188,64 @@
                                 },false)
 
 
+                                document.querySelector(".clearBtn").addEventListener("click", function (e){
+                                    e.preventDefault()
+                                    e.stopPropagation()
+
+                                    self.location ='/todo/list'
+
+                                },false)
+
+                                document.querySelector(".btn-secondary").addEventListener("click",function (e){
+
+                                    e.preventDefault()
+                                    e.stopPropagation()
+
+                                    self.location='/todo/list?${pageRequestDTO.link}'
+
+                                },false);
+
+                                document.querySelector(".btn-danger").addEventListener("click",function (e){
+
+                                    e.preventDefault()
+                                    e.stopPropagation()
+
+                                    formObj.action =`/todo/remove?${pageRequestDTO.link}`
+                                    formObj.method = "post"
+
+                                    formObj.submit()
+
+                                },false);
+
+
                             </script>
-
-
                         </div>
-
-
-
-
                     </div>
 
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
                 </div>
             </div>
         </div>
 
     </div>
-    <div class="row content">
 
-        <h1>Content</h1>
-    </div>
-    <div class="row footer">
-        <!--<h1>Footer</h1>-->
 
-        <div class="row fixed-bottom" style="z-index: -100">
-            <footer class="py-1 my-1">
-                <p class="text-center text-muted">Footer</p>
-            </footer>
-        </div>
+
+<div class="row content">
+
+    <h1>Content</h1>
+</div>
+<div class="row footer">
+    <!--<h1>Footer</h1>-->
+
+    <div class="row fixed-bottom" style="z-index: -100">
+        <footer class="py-1 my-1">
+            <p class="text-center text-muted">Footer</p>
+        </footer>
     </div>
+</div>
+</div>
 </div>
 <!-- Optional JavaScript; choose one of the two! -->
 
@@ -190,3 +256,4 @@
 
 </body>
 </html>
+
